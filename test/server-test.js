@@ -38,10 +38,25 @@ describe('Server', () => {
   });
 
   describe('POST /pizzas', () => {
-    it('should not return 404', (done) => {
-      this.request.post('/pizzas', (error, response) => {
+    beforeEach(() => {
+      app.locals.pizzas = {};
+    });
+
+    it('should receive and store data', (done) => {
+      var validPizza = {
+        pizza: {
+          name: 'A vegan pizza',
+          toppings: [ 'mushrooms', 'onions', 'garlic', 'black olives' ]
+        }
+      };
+
+      this.request.post('/pizzas', { form: validPizza }, (error, response) => {
         if (error) { done(error); }
-        assert.notEqual(response.statusCode, 404);
+
+        var pizzaCount = Object.keys(app.locals.pizzas).length;
+
+        assert.equal(pizzaCount, 1, `Expected 1 pizzas, found ${pizzaCount}`);
+
         done();
       });
     });
