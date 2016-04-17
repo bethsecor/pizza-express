@@ -24,6 +24,10 @@ app.post('/pizzas', (request, response) => {
   response.sendStatus(201);
 });
 
+app.get('/pizzas/:id', (request, response) => {
+  response.sendStatus(200);
+});
+
 if (!module.parent) {
   app.listen(app.get('port'), () => {
     console.log(`${app.locals.title} is running on ${app.get('port')}.`);

@@ -58,4 +58,18 @@ describe('Server', () => {
     });
   });
 
+  describe('GET /pizzas/:id', () => {
+    beforeEach(() => {
+      app.locals.pizzas.testPizza = fixtures.validPizza;
+    });
+
+    it('should not return 404', (done) => {
+      this.request.get('/pizzas/testPizza', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+  });
+
 });
