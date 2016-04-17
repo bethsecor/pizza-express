@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/bethsecor/pizza-express/issues"
   },
-  "homepage": "https://github.com/bethsecor/pizza-express#readme"
+  "homepage": "https://github.com/bethsecor/pizza-express#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
 }
