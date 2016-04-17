@@ -43,6 +43,14 @@ describe('Server', () => {
       app.locals.pizzas = {};
     });
 
+    it('should not return 404', (done) => {
+      this.request.post('/pizzas', (error, response) => {
+        if (error) { done(error); }
+        assert.notEqual(response.statusCode, 404);
+        done();
+      });
+    });
+
     it('should receive and store data', (done) => {
       var payload = { pizza: fixtures.validPizza };
 
@@ -53,6 +61,17 @@ describe('Server', () => {
 
         assert.equal(pizzaCount, 1, `Expected 1 pizzas, found ${pizzaCount}`);
 
+        done();
+      });
+    });
+
+    it('should redirect the user to their new pizza', (done) => {
+      var payload = { pizza: fixtures.validPizza };
+
+      this.request.post('/pizzas', { form: payload }, (error, response) => {
+        if (error) { done(error); }
+        var newPizzaId = Object.keys(app.locals.pizzas)[0];
+        assert.equal(response.headers.location, '/pizzas/' + newPizzaId);
         done();
       });
     });
