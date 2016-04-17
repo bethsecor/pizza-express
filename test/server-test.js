@@ -81,6 +81,19 @@ describe('Server', () => {
         done();
       });
     });
+
+    it('should return the pizza toppings as well', (done) => {
+      var pizza = app.locals.pizzas.testPizza;
+
+      this.request.get('/pizzas/testPizza', (error, response) => {
+        if (error) { done(error); }
+        pizza.toppings.forEach(function(topping){
+          assert(response.body.includes(topping),
+            `"${response.body}" does not include "${topping}".`);
+        });
+        done();
+      });
+    });
   });
 
 });

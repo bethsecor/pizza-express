@@ -5,3 +5,7 @@ html(lang="en")
   body
     h1= title
     h1= pizza.name
+    h3 "Toppings:"
+    ul
+      each topping in pizza.toppings
+        li= topping
